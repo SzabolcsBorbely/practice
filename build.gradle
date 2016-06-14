@@ -1,10 +1,11 @@
 apply plugin: 'java'
 
-task fizzbuzz(type: Jar, description: 'Make a jar from the FizzBuzz practice task') {
+task dist(type: Jar, description: 'Make a jar from the FizzBuzz practice task') {
 	manifest {
 		attributes 'Implementation-Title': 'FizzBuzz practice task',
-		'Main-Class': 'fizzbuzz.FizzBuzz'
+		'Main-Class': 'fizzbuzz.Main'
 	}
+	destinationDir = file("$rootDir/build")
 	baseName = 'fizzbuzz'
 	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 	with jar
