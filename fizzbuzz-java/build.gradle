@@ -1,0 +1,46 @@
+plugins {
+  id "org.sonarqube" version "2.0.1"
+  id "java"
+}
+
+task dist(type: Jar, description: 'Make a jar from the FizzBuzz practice task') {
+	manifest {
+		attributes 'Main-Class': 'fizzbuzz.Main'
+	}
+	destinationDir = file("$rootDir/fizzbuzz-java")
+	baseName = 'fizzbuzz'
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
+}
+
+repositories() {
+	mavenCentral()
+}
+
+dependencies() {
+	testCompile 'junit:junit:4.12'
+}
+
+def user_name = "eborsza"
+
+def get_user_name = {
+    String un = user_name
+    if (System.getenv("TRAVIS") != null) {
+        un = "ci-" + user_name
+    }
+    return un
+}
+
+sonarqube {
+    properties {
+        property "sonar.host.url", "http://sonar-ezsofab.rhcloud.com/"
+        property "sonar.java.source", "1.8"
+        property "sonar.sources", "src/main/java"
+        property "sonar.java.tests", "src/test/java"
+        property "sonar.scm.provider", "git"
+        property "sonar.projectKey", get_user_name() + "_" + project.name
+        property "sonar.projectName", get_user_name() + "_" + project.name
+    }
+}
+
+

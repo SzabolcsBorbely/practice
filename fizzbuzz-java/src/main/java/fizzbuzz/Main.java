@@ -9,7 +9,7 @@ public class Main {
             List<String> fizzbuzzsequence = new FizzBuzz().generateFizzBuzzSequence(range[0], range[1]);
             new ResultPrinter().printSequence(fizzbuzzsequence);
         } catch (IllegalArgumentException e) {
-            System.err.println("ERROR: " + e.getMessage());
+            System.err.println("ERROR: " + e.getMessage()); //NOSONAR
         }
     }
 }

@@ -1,20 +1,19 @@
 package fizzbuzz;
 
 public class ArgumentParser {
-    public int[] parseArguments(String... input_args) {
-        if (input_args.length != 2) {
+    public int[] parseArguments(String... inputArgs) {
+        if (inputArgs.length != 2) {
             throw new IllegalArgumentException("wrong number of arguments, try: <number> <number>");
         }
-        int floor = parseBoundary(input_args[0]);
-        int top = parseBoundary(input_args[1]);
+        int floor = parseBoundary(inputArgs[0]);
+        int top = parseBoundary(inputArgs[1]);
         validateRange(floor, top);
         return new int[] { floor, top };
     }
 
     private int parseBoundary(String input) {
         try {
-            int boundary = Integer.parseInt(input);
-            return boundary;
+            return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("wrong arguments, The range boundaries have to be integers");
         }
